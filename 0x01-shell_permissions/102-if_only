@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo chown betty --from gillaume hello
+sudo chown gillaume --from betty hello
