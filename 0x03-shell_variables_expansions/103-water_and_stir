@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(printf %o $(($WATER+STIR)))
+echo $(printf %o $(($WATER+STIR))) | tr 01234567 bestchol
