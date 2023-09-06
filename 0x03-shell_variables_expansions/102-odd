@@ -1,2 +1,2 @@
 #!/bin/bash
-while IFS= read -r line; do echo "$line"; read -r; done < "$1"
+paste --serial --delimiters ':\n' test.txt | cut -d ':' -f 1
