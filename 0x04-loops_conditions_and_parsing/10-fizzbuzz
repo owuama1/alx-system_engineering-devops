@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This script displays Fizz, Buzz, FizzBuzz, or the number from 1 to 100.
+
+# Using a for loop to iterate from 1 to 100
+for ((i=1; i<=100; i++)); do
+  # Checking for multiples of 3 and 5
+  if (( i % 3 == 0 )) && (( i % 5 == 0 )); then
+    echo "FizzBuzz"
+  # Checking for multiples of 3
+  elif (( i % 3 == 0 )); then
+    echo "Fizz"
+  # Checking for multiples of 5
+  elif (( i % 5 == 0 )); then
+    echo "Buzz"
+  # Otherwise, displaying the number
+  else
+    echo "$i"
+  fi
+done
