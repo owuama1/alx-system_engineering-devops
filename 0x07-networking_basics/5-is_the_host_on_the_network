@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Ping an IP address passed as an argument
+
+# Check if an argument is provided
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 {IP_ADDRESS}"
+  exit 1
+fi
+
+# Extract the IP address from the argument
+ip_address="$1"
+
+# Perform the ping with a count of 5
+ping -c 5 "$ip_address"
