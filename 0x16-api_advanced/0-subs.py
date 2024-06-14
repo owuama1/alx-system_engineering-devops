@@ -5,18 +5,20 @@ Query the Reddit API to fetch the number of subscribers for a given subreddit.
 
 import requests
 
+
 def number_of_subscribers(subreddit):
     """
     Retrieve the number of subscribers for a given subreddit.
 
     Args:
-    - subreddit (str): The name of the subreddit (e.g., 'python', 'learnprogramming').
+    - subreddit (str):
+      The name of the subreddit (e.g., 'python', 'learnprogramming').
 
     Returns:
     - int: Number of subscribers if the subreddit exists, otherwise 0.
     """
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Mozilla/5.0'}  # Reddit API requires a User-Agent header
+    headers = {'User-Agent': 'Mozilla/5.0'}
 
     try:
         response = requests.get(url, headers=headers, allow_redirects=False)
@@ -33,6 +35,7 @@ def number_of_subscribers(subreddit):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
         return 0
+
 
 if __name__ == "__main__":
     subreddit = input("Enter the subreddit name: ")
