@@ -7,6 +7,7 @@ import json
 import requests
 import sys
 
+
 def fetch_employee_todo_list(employee_id):
     """
     Fetches employee's TODO list and exports data to JSON.
@@ -20,7 +21,9 @@ def fetch_employee_todo_list(employee_id):
     """
     try:
         # Fetch employee data
-        employee_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+        employee_url = (
+            f"https://jsonplaceholder.typicode.com/users/{employee_id}"
+        )
         response = requests.get(employee_url)
         response.raise_for_status()
         employee_data = response.json()
@@ -30,7 +33,9 @@ def fetch_employee_todo_list(employee_id):
         username = employee_data.get('username')
 
         # Fetch TODO list for the employee
-        todo_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+        todo_url = (
+            f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
+        )
         response = requests.get(todo_url)
         response.raise_for_status()
         tasks = response.json()
@@ -52,11 +57,13 @@ def fetch_employee_todo_list(employee_id):
 
         # Print summary of tasks
         done_tasks = [task for task in tasks if task.get('completed')]
-        print(f"Employee {username} is done with tasks({len(done_tasks)}/{len(tasks)}):")
+        print(f"Employee {username} is done with tasks({len(done_tasks)}/"
+              f"{len(tasks)}):")
         for task in done_tasks:
             print(f"\t{task.get('title')}")
 
-        print(f"JSON file '{json_filename}' has been created with task details.")
+        print(f"JSON file '{json_filename}'"
+              f"has been created with task details.")
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
@@ -64,6 +71,7 @@ def fetch_employee_todo_list(employee_id):
     except IOError as e:
         print(f"Error writing to JSON file: {e}")
         sys.exit(1)
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
