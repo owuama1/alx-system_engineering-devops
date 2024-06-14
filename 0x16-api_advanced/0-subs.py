@@ -1,38 +1,17 @@
 #!/usr/bin/python3
-"""
-Query the Reddit API to fetch the number of subscribers for a given subreddit.
-"""
-
-import requests
+"""Module for task 0"""
 
 
 def number_of_subscribers(subreddit):
-    """
-    Retrieve the number of subscribers for a given subreddit.
+    """Queries the Reddit API and returns the number of subscribers
+    to the subreddit"""
+    import requests
 
-    Args:
-    - subreddit (str):
-      The name of the subreddit (e.g., 'python', 'learnprogramming').
-
-    Returns:
-    - int: Number of subscribers if the subreddit exists, otherwise 0.
-    """
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Mozilla/5.0'}
-
-    try:
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        if response.status_code == 200:
-            data = response.json()
-            subscribers = data['data']['subscribers']
-            return subscribers
-        elif response.status_code == 404:
-            print(f"Subreddit '{subreddit}' not found.")
-            return 0
-        else:
-            print(f"Error fetching data:"
-                  f"Status Code {response.status_code}")
-            return 0
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
+    sub_info = requests.get("https://www.reddit.com/r/{}/about.json"
+                            .format(subreddit),
+                            headers={"User-Agent": "My-User-Agent"},
+                            allow_redirects=False)
+    if sub_info.status_code >= 300:
         return 0
+
+    return sub_info.json().get("data").get("subscribers")
