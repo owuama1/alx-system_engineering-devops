@@ -36,9 +36,3 @@ def number_of_subscribers(subreddit):
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
         return 0
-
-
-if __name__ == "__main__":
-    subreddit = input("Enter the subreddit name: ")
-    subscribers = number_of_subscribers(subreddit)
-    print(f"The subreddit '{subreddit}' has {subscribers} subscribers.")
