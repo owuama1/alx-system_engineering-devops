@@ -3,9 +3,9 @@
 Accessing a REST API for todo lists of employees and exporting data to CSV.
 """
 
+import csv
 import requests
 import sys
-import csv
 
 def fetch_employee_todo_list(employee_id):
     """
