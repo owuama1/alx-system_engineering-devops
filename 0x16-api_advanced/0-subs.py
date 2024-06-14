@@ -1,27 +1,44 @@
 #!/usr/bin/python3
 """
-number of subscribers for a given subreddit
+Query the Reddit API to fetch the number of subscribers for a given subreddit.
 """
 
-from requests import get
+import requests
 
 
 def number_of_subscribers(subreddit):
     """
-    function that queries the Reddit API and returns the number of subscribers
-    (not active users, total subscribers) for a given subreddit.
+    Retrieve the number of subscribers for a given subreddit.
+
+    Args:
+    - subreddit (str):
+      The name of the subreddit (e.g., 'python', 'learnprogramming').
+
+    Returns:
+    - int: Number of subscribers if the subreddit exists, otherwise 0.
     """
-
-    if subreddit is None or not isinstance(subreddit, str):
-        return 0
-
-    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
-    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-    response = get(url, headers=user_agent)
-    results = response.json()
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'User-Agent': 'Mozilla/5.0'}
 
     try:
-        return results.get('data').get('subscribers')
-
-    except Exception:
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        if response.status_code == 200:
+            data = response.json()
+            subscribers = data['data']['subscribers']
+            return subscribers
+        elif response.status_code == 404:
+            print(f"Subreddit '{subreddit}' not found.")
+            return 0
+        else:
+            print(f"Error fetching data:"
+                  f"Status Code {response.status_code}")
+            return 0
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
         return 0
+
+
+if __name__ == "__main__":
+    subreddit = input("Enter the subreddit name: ")
+    subscribers = number_of_subscribers(subreddit)
+    print(f"The subreddit '{subreddit}' has {subscribers} subscribers.")
