@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This script creates an RSA key pair with a 4096-bit key size, named school, protected by the passphrase betty
+
+# Define the key name and passphrase
+key_name="school"
+passphrase="betty"
+
+# Create the RSA key pair
+ssh-keygen -t rsa -b 4096 -f "$key_name" -N "$passphrase"
+
+# Verify the creation of the key pair
+if [ -f "$key_name" ] && [ -f "$key_name.pub" ]; then
+    echo "RSA key pair created successfully."
+    echo "Private key: $key_name"
+    echo "Public key: $key_name.pub"
+else
+    echo "Failed to create RSA key pair."
+    exit 1
+fi
