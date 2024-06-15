@@ -1,24 +1,7 @@
 #!/usr/bin/env bash
-# This script installs and configures Nginx to serve a page with "Hello World!"
-
-# Update package list and install nginx
-sudo apt-get update -y
-sudo apt-get install nginx -y
-
-# Create the custom HTML page
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Configure Nginx to listen on port 80 (default configuration already does this)
-# Ensure Nginx service is running
-sudo service nginx restart
-
-# Ensure Nginx starts on boot
-sudo update-rc.d nginx defaults
-
-# Verify Nginx is serving the correct content
-if curl -s http://localhost | grep -q "Hello World!"; then
-    echo "Nginx is serving the expected content."
-else
-    echo "Nginx is not serving the expected content."
-    exit 1
-fi
+# Installs nginx server
+apt-get update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo "Hello World!" > /var/www/html/index.html
+service nginx start
