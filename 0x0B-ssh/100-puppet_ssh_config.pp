@@ -1,24 +1,12 @@
-file { '/home/ubuntu/.ssh':
-  ensure => directory,
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-  mode   => '0700',
+# Puppet script to create ssh config file
+file_line { 'Turn off passwd auth':
+  ensure => 'present',
+  path   => '/etc/ssh/ssh_config',
+  line   => '    PasswordAuthentication no',
 }
 
-file { '/home/ubuntu/.ssh/config':
-  ensure  => file,
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
-  mode    => '0600',
-  content => template('ssh_config.erb'),
-}
-
-# Make sure the private key file exists with the correct permissions
-file { '/home/ubuntu/.ssh/school':
-  ensure => file,
-  owner  => 'ubuntu',
-  group  => 'ubuntu',
-  mode   => '0600',
-  # Optionally, you can manage the key content here or ensure it exists
-  # content => 'YOUR_PRIVATE_KEY_CONTENT',
+file_line { 'Declare identity file':
+  ensure => 'present',
+  path   => '/etc/ssh/ssh_config',
+  line   => '    IdentityFile ~/.ssh/school',
 }
