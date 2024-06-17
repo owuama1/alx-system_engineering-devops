@@ -1,24 +1,13 @@
-# This Puppet manifest increases the file descriptor limit for the holberton user
+# This manuscript enables the user holberton to login and open files without error
 
-# Ensure the /etc/security/limits.d directory exists
-file { '/etc/security/limits.d':
-  ensure => 'directory',
+# Increase hard file limit for user holberton
+exec { 'increase-hard-file-limit-for-holberton-user':
+  command => 'sed -i "/holberton hard/s/5/50000/" /etc/security/limits.conf',
+  path    => '/usr/local/bin/:/bin/'
 }
 
-# Create a configuration file to set the limits for the holberton user
-file { '/etc/security/limits.d/holberton.conf':
-  ensure  => 'present',
-  content => 'holberton soft nofile 65536
-holberton hard nofile 65536
-',
-  mode    => '0644',
-  owner   => 'root',
-  group   => 'root',
-}
-
-# Ensure PAM limits module is enabled in common-session
-file_line { 'pam_limits':
-  path  => '/etc/pam.d/common-session',
-  line  => 'session required pam_limits.so',
-  match => '^session required pam_limits.so',
+# Increase soft file limit for user holberton
+exec { 'increase-soft-file-limit-for-holberton-user':
+  command => 'sed -i "/holberton soft/s/4/50000/" /etc/security/limits.conf',
+  path    => '/usr/local/bin/:/bin/'
 }
