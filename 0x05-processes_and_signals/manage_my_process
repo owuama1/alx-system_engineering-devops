@@ -1,20 +1,8 @@
 #!/usr/bin/env bash
-# manage_my_process script - Indefinitely writes "I am alive!" to a file
+# This script indefinitely writes "I am alive!"" to the file /tmp/my_process
 
-output_file="/tmp/my_process"
-
-# Function to clean up and terminate the script
-cleanup() {
-  echo "Cleaning up..."
-  rm -f "$output_file"  # Corrected line
-  exit
-}
-
-# Set up trap to handle signals
-trap 'cleanup' SIGTERM
-
-# Display messages indefinitely
-while true; do
-  echo "I am alive!" >> "$output_file"
+while true
+do
+  echo "I am alive!" >> /tmp/my_process
   sleep 2
 done
